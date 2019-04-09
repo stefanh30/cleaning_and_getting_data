@@ -33,5 +33,5 @@ df <- df[,c(1,2,grep("mean\\(|std\\(",colnames(df)))]
 #creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 library(dplyr)
 df_averages<-(df %>% group_by(activity,subject) %>%  summarise_all(funs(mean),na.rm=T))
-write.table(dfsum,file="output_dataset.txt",row.name=FALSE)
+write.table(df_averages,file="output_dataset.txt",row.name=FALSE)
 
