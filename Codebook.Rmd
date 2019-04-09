@@ -1,0 +1,50 @@
+---
+title: "Codebook for run_analysis.R"
+author: "Stefan Hille"
+date: "4/9/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This markdown documents serves as the codebook for the dataframes "df" and "dfsum" which are the output of the processing script run_analysis.R on the data provided at https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+##Data
+the final summarized data is in dataframe df. it describes in each row one measurement of one subject executing one activity and as metrics the resulting measurements' mean and standard deviation.
+
+## Variables
+####Activity:
+6 factorized levels describing the activity of the subject for that measurement
+
+####Subject:
+integer ID for which of the 30 subjects is executing the activity.
+
+####Metrics:
+- listed are the 66 metrics with are calculated values of the actual sensor signals. its abbreviations are to be interpreted as follows:
+
+- we selected only mean (**"mean"**) and standard deviation (**"std"**) metrics for the final dataframe. 
+- suffix **X, Y and Z** are the vectors of movement of the same measure across 3 dimensions
+- prefix **"t"** denotes time domain signals
+- prefix **"f"** denotes metrics transformed with a Fast Fourier Transformation (FFT)
+- the data for these metrics come from the accelerometer (**"Acc"**) and gyroscope (3-axial raw signals (**"Gyro"**)
+- the acceleration signal was separated into body (**"Body"**) and gravity (**"Gracity"**) acceleration signals
+
+##Transformations
+####df
+is created as a result of
+
+1. using *activity_labels.txt* to annotate each row in *Y_train.txt* and *y_test.txt*
+2. using *features.txt* to annotate each column in *x_train.txt* and *x_test.txt*
+3. using *y_train.txt* and subject_train.txt to annotate each row in *x_train.txt* and *x_test.txt*
+4. merging *x_train.txt* and *x_test.txt* into preliminary dataframe *df*
+5. extracting only columns containing text *mean* or *std* into final dataframe *df*
+
+####dfsum
+is created as a result of
+
+1. grouping df by activity and subject
+2. summarising with function mean across all other metrics
+
+
